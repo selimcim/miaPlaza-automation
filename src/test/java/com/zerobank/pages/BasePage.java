@@ -42,6 +42,8 @@ public abstract class BasePage {
     @FindBy(css = "#searchTerm")
     public WebElement searchBox;
 
+
+
     public String getUserName(){
         BrowserUtils.waitForVisibility(userName, 5);
         return userName.getText();

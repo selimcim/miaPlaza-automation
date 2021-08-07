@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 
 import java.util.List;
 
-public class FindTransactionsPage extends BasePage{
+public class FindTransactionsPage extends AccountActivityPage{
     @FindBy(xpath ="//input[@id='aa_description']" )
     public WebElement description;
 

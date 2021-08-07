@@ -9,13 +9,12 @@ import org.openqa.selenium.support.ui.Select;
 import java.util.Collections;
 import java.util.List;
 
-public class FindTrasactionsDefs{
+public class FindTrasactionsDefs {
     @Given("the user accesses the Find Transactions tab")
     public void the_user_accesses_the_Find_Transactions_tab() {
         new LoginPage().login();
         new AccountSummaryPage().accountActivity.click();
         new AccountActivityPage().findTransations.click();
-
 
 
     }
@@ -36,8 +35,8 @@ public class FindTrasactionsDefs{
 
     @Then("results table should only show transactions dates between {string} to {string}")
     public void results_table_should_only_show_transactions_dates_between_to(String fromDate, String toDate) {
-        for (String str : BrowserUtils.getElementsText(new FindTransactionsPage().dateColumnData) ) {
-            Assert.assertTrue(str.compareTo(fromDate)>=0 & str.compareTo(toDate)<=0);
+        for (String str : BrowserUtils.getElementsText(new FindTransactionsPage().dateColumnData)) {
+            Assert.assertTrue(str.compareTo(fromDate) >= 0 & str.compareTo(toDate) <= 0);
         }
 
     }
@@ -45,13 +44,13 @@ public class FindTrasactionsDefs{
     @Then("the results should be sorted by most recent date")
     public void the_results_should_be_sorted_by_most_recent_date() {
 
-        List<String> actualelementsText =BrowserUtils.getElementsText(new FindTransactionsPage().dateColumnData);
-        List<String> expectedelementsText =BrowserUtils.getElementsText(new FindTransactionsPage().dateColumnData);
+        List<String> actualelementsText = BrowserUtils.getElementsText(new FindTransactionsPage().dateColumnData);
+        List<String> expectedelementsText = BrowserUtils.getElementsText(new FindTransactionsPage().dateColumnData);
 
         Collections.sort(expectedelementsText);
         Collections.reverse(expectedelementsText);
 
-        Assert.assertEquals(expectedelementsText,actualelementsText);
+        Assert.assertEquals(expectedelementsText, actualelementsText);
 
     }
 
@@ -86,21 +85,47 @@ public class FindTrasactionsDefs{
 
         }
     }
+
     @Then("results table should show at least one result under {string}")
     public void results_table_should_show_at_least_one_result_under(String string) {
+        if (string.toUpperCase().equals("DEPOSIT")) {
+            BrowserUtils.waitFor(2);
+            List<String> elementsText = BrowserUtils.getElementsText(new FindTransactionsPage().depositColumnData);
+            BrowserUtils.waitFor(2);
+            elementsText.removeIf(String::isEmpty);
+            Assert.assertTrue(elementsText.size() >= 1);
+        }
+        if (string.toUpperCase().equals("WITHDRAWAL")) {
+            List<String> elementsText = BrowserUtils.getElementsText(new FindTransactionsPage().withdrawalColumnData);
+            elementsText.removeIf(String::isEmpty);
+            Assert.assertTrue(elementsText.size() >= 1);
+        }
 
     }
 
     @When("user selects type {string}")
     public void user_selects_type(String string) {
         Select select = new Select(new FindTransactionsPage().typeDropDown);
-        select.selectByValue(string);
+        select.selectByValue(string.toUpperCase());
 
     }
 
     @Then("results table should show no result under {string}")
     public void results_table_should_show_no_result_under(String string) {
+        if (string.toUpperCase().equals("DEPOSIT")) {
+            for (String str : BrowserUtils.getElementsText(new FindTransactionsPage().depositColumnData)) {
+
+                Assert.assertTrue(str.isEmpty());
+            }
+        }
+        if (string.toUpperCase().equals("WITHDRAWAL")) {
+            for (String str : BrowserUtils.getElementsText(new FindTransactionsPage().withdrawalColumnData)) {
+
+                Assert.assertTrue(str.isEmpty());
+            }
+        }
 
     }
+
 
 }
