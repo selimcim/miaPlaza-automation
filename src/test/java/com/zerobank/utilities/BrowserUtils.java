@@ -336,4 +336,26 @@ public class BrowserUtils {
 
     }
 
+    /**
+     *   In our isNumeric() method, we're just checking for values that are of type Double,
+     * Integer, Float, Long, and large numbers by using any of the parse methods.
+     *
+     */
+
+
+    public static boolean isNumeric(String strNum) {
+        if (strNum == null) {
+            return false;
+        }
+        try {
+            double d = Double.parseDouble(strNum);
+            /*int i = Integer.parseInt(strNum);
+            float f = Float.parseFloat(strNum);
+            long l = Long.parseLong(strNum);*/
+        } catch (NumberFormatException nfe) {
+            return false;
+        }
+        return true;
+    }
+
 }

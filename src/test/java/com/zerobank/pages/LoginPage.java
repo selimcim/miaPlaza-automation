@@ -29,8 +29,8 @@ public class LoginPage {
     @FindBy(xpath ="//button[@id='details-button']" )
     public WebElement advancedButton;
 
-
-
+    @FindBy(xpath ="//div[@class='alert alert-error']" )
+    public WebElement errorMessage;
 
     public LoginPage() {
         PageFactory.initElements(Driver.get(),this);
@@ -45,4 +45,16 @@ public class LoginPage {
         advancedButton.click();
         proceedLink.click();
     }
+    public void login(String username,String password) {
+        signinButton.click();
+        userLoginBox.sendKeys(username);
+        userPasswordBox.click();
+        userPasswordBox.sendKeys(password);
+        submitButton.click();
+        if (username.equals(ConfigurationReader.get("username")) && password.equals(ConfigurationReader.get("password"))){
+            advancedButton.click();
+            proceedLink.click();
+    }
+    }
+
 }

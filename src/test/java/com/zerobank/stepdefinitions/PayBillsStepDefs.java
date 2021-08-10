@@ -6,13 +6,16 @@ import com.zerobank.utilities.BrowserUtils;
 import com.zerobank.utilities.Driver;
 import io.cucumber.java.en.*;
 
+import org.assertj.core.api.SoftAssertions;
 import org.junit.Assert;
 
 
 import org.openqa.selenium.Alert;
+import org.openqa.selenium.By;
 import org.openqa.selenium.support.ui.Select;
 
 
+import java.text.SimpleDateFormat;
 import java.util.List;
 import java.util.Map;
 
@@ -85,6 +88,54 @@ public class PayBillsStepDefs extends BasePage {
     }
 
 
+    @When("the user clicks the Pay button")
+    public void the_user_clicks_the_Pay_button() {
+        new PayBillsPage().payButton.click();
+    }
+
+    @Then("the user should see the message as {string}")
+    public void the_user_should_see_the_message_as(String expectedMessage) {
+        if (expectedMessage.equals("The payment was successfully submitted.")){
+            Assert.assertEquals(expectedMessage,new PayBillsPage().theMessage.getText());
+        }
+
+        if (expectedMessage.equals("Please fill out this field message!")){
+            String actualMessage = Driver.get().findElement(By.name("amount")).getAttribute("validationMessage");
+
+            Assert.assertEquals(expectedMessage,actualMessage);
+
+        }
+
+
+    }
+
+    @When("the user enters the following information")
+    public void the_user_enters_the_following_information(Map<String,String> information) {
+        new Select(new PayBillsPage().payeeDropdown).selectByVisibleText(information.get("Payee"));
+        new Select(new PayBillsPage().accountDropdown).selectByVisibleText(information.get("Account"));
+        try {
+
+            softAssertions.assertThat(BrowserUtils.isNumeric(information.get("Amount"))).isTrue();
+
+            new PayBillsPage().theAmount.sendKeys(information.get("Amount"));
+            new PayBillsPage().date.sendKeys(information.get("Date"));
+            new PayBillsPage().description.sendKeys(information.get("Description"));
+        } catch (Exception e) {
+           // System.out.println("Please fill out this field message!");
+
+        }
+
+
+    }
+    @Then("the user should not see the message as {string}")
+    public void the_user_should_not_see_the_message_as(String unexpectedMessage) {
+
+        String actualMessage= new PayBillsPage().theMessage.getText();
+        //BrowserUtils.waitFor(2);
+        softAssertions.assertThat(actualMessage).isNotEqualTo(unexpectedMessage);
+        softAssertions.assertAll();
+    }
+    SoftAssertions softAssertions = new SoftAssertions();
 
 
 
