@@ -91,18 +91,21 @@ public class PayBillsStepDefs extends BasePage {
     @When("the user clicks the Pay button")
     public void the_user_clicks_the_Pay_button() {
         new PayBillsPage().payButton.click();
+        BrowserUtils.waitFor(3);
     }
 
     @Then("the user should see the message as {string}")
     public void the_user_should_see_the_message_as(String expectedMessage) {
         if (expectedMessage.equals("The payment was successfully submitted.")){
             Assert.assertEquals(expectedMessage,new PayBillsPage().theMessage.getText());
+
         }
 
         if (expectedMessage.equals("Please fill out this field message!")){
             String actualMessage = Driver.get().findElement(By.name("amount")).getAttribute("validationMessage");
 
             Assert.assertEquals(expectedMessage,actualMessage);
+
 
         }
 

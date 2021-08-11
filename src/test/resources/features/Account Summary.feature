@@ -1,3 +1,4 @@
+
 Feature: Navigating to Account Summary Page
   Background:
     Given the user is logged in
