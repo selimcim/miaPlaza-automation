@@ -1,8 +1,8 @@
-package com.zerobank.stepdefinitions;
+package com.Miaplaza.stepdefinitions;
 
 
-import com.zerobank.utilities.ConfigurationReader;
-import com.zerobank.utilities.Driver;
+import com.Miaplaza.utilities.ConfigurationReader;
+import com.Miaplaza.utilities.Driver;
 import io.cucumber.java.After;
 import io.cucumber.java.Before;
 import io.cucumber.java.Scenario;
@@ -16,7 +16,6 @@ public class Hooks {
 
     @Before
     public void setUp(){
-        //System.out.println("Before hooks");
         Driver.get().get(ConfigurationReader.get("url"));
         Driver.get().manage().timeouts().implicitlyWait(5, TimeUnit.SECONDS);
     }
@@ -28,7 +27,7 @@ public class Hooks {
 
     @After
     public void tearDown(Scenario scenario){
-        //System.out.println("After hooks");
+
         // check if the scenario is failed
         if (scenario.isFailed()){
             // take that screenshot
@@ -37,7 +36,7 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", scenario.getName() + "_screenshot");
            // scenario.embed(screenshot, "image/png");
         }
-        Driver.closeDriver();
+//        Driver.closeDriver();
     }
 
     @After("@database")

@@ -1,4 +1,4 @@
-package com.zerobank.runners;
+package com.Miaplaza.runners;
 
 import io.cucumber.junit.Cucumber;
 import io.cucumber.junit.CucumberOptions;
@@ -10,7 +10,7 @@ import org.junit.runner.RunWith;
                 "html:target/failed-html-reports",
                 "rerun:target/rerun.txt"},
         features = "@target/rerun.txt",
-        glue = "com/zerobank/stepdefinitions",
+        glue = "com/Miaplaza/stepdefinitions",
         tags = "@wip"
 )
 public class FailedTestRunner {
