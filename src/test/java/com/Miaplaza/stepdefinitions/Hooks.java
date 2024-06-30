@@ -36,7 +36,7 @@ public class Hooks {
             scenario.attach(screenshot, "image/png", scenario.getName() + "_screenshot");
            // scenario.embed(screenshot, "image/png");
         }
-//        Driver.closeDriver();
+        Driver.closeDriver();
     }
 
     @After("@database")
