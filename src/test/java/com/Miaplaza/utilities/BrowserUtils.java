@@ -10,8 +10,10 @@ import org.openqa.selenium.*;
 import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
+import org.openqa.selenium.support.ui.Select;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import org.apache.poi.ss.usermodel.Row;
+
 import java.io.FileInputStream;
 
 import java.util.ArrayList;
@@ -34,7 +36,7 @@ public class BrowserUtils {
             FileInputStream ExcelFile = new FileInputStream(ConfigurationReader.get("excelPath"));
             // Access the required test data sheet
             workBook = WorkbookFactory.create(ExcelFile);
-            workSheet = (Sheet) workBook.getSheet(sheetName);
+            workSheet = workBook.getSheet(sheetName);
             // check if sheet is null or not. null means  sheetname was wrong
             Assert.assertNotNull("Sheet: \"" + sheetName + "\" does not exist\n", workSheet);
         } catch (Exception e) {
@@ -405,7 +407,7 @@ public class BrowserUtils {
         List<Map<String, String>> data = new ArrayList<>();
         for (int i = 1; i < 3; i++) {
             // get each row
-            Row row = (Row) workSheet;
+            Row row = workSheet.getRow(i);
             // create map of the row using the column and value
             // column map key, cell value --> map bvalue
             Map<String, String> rowMap = new HashMap<String, String>();
@@ -429,7 +431,7 @@ public class BrowserUtils {
 
     public List<String> getColumnsNames() {
         List<String> columns = new ArrayList<>();
-        Row row = workSheet.getRow()
+        for (Cell cell : workSheet.getRow(0)) {
             columns.add(cell.toString());
         }
         return columns;
@@ -438,8 +440,14 @@ public class BrowserUtils {
     public static void selectHear(List<String> sites) {
         for (String site : sites) {
             System.out.println("role = " + site);
-            Driver.get().findElement(By.xpath("//label[.='" + site + "']")).click();
+            Driver.get().findElement(By.xpath("//em[.='" + site + "']")).click();
         }
+    }
+
+    public static void selectDropDownByText(WebElement element, String text) {
+
+        Select elementToBeSelected = new Select(element);
+        elementToBeSelected.selectByVisibleText(text);
     }
 
 

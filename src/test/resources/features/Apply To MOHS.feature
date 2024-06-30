@@ -7,3 +7,4 @@ Feature: Navigating to Apply to Our School Page
   Scenario: Testing the parent information page
     Given  The user navigates to MOHS Initial Application
     Then The user fills the form Parent Information
+    And The user navigates to the student information page

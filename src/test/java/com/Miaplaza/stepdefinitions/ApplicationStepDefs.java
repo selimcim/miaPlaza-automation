@@ -25,4 +25,9 @@ public class ApplicationStepDefs {
     public void theUserFillsTheFormParentInformation() {
         application.enterDataForParentApplication();
     }
+
+    @And("The user navigates to the student information page")
+    public void theUserNavigatesToTheStudentInformationPage() {
+        application.navigateToStudentInformation();
+    }
 }
