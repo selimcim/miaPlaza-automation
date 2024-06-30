@@ -11,7 +11,7 @@ import org.openqa.selenium.interactions.Actions;
 import org.openqa.selenium.support.ui.ExpectedCondition;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
-
+import org.apache.poi.ss.usermodel.Row;
 import java.io.FileInputStream;
 
 import java.util.ArrayList;
@@ -23,7 +23,7 @@ import static org.junit.Assert.*;
 
 public class BrowserUtils {
 
-    private Sheet workSheet;
+    private org.apache.poi.ss.usermodel.Sheet workSheet;
     private Workbook workBook;
     private String path;
 
@@ -429,7 +429,7 @@ public class BrowserUtils {
 
     public List<String> getColumnsNames() {
         List<String> columns = new ArrayList<>();
-        for (Cell cell : workSheet.getRow(0)) {
+        Row row = workSheet.getRow()
             columns.add(cell.toString());
         }
         return columns;
