@@ -1,8 +1,7 @@
 package com.Miaplaza.pages;
 
-import com.Miaplaza.utilities.BrowserUtils;
+
 import com.Miaplaza.utilities.Driver;
-import org.openqa.selenium.Keys;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
@@ -30,6 +29,7 @@ public abstract class BasePage {
 
 
     public void apply() {
+
         applyToOurSchoolButton.click();
 
     }

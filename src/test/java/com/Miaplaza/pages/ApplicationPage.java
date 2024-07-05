@@ -6,7 +6,6 @@ import org.junit.Assert;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.w3c.dom.html.HTMLInputElement;
 
 import static com.Miaplaza.utilities.BrowserUtils.*;
 
@@ -93,6 +92,6 @@ public class ApplicationPage extends BasePage {
         nextButton.click();
         String actual = getText(studentInfoHeader);
         String expected = "Student Information";
-        Assert.assertEquals(expected,actual);
+        Assert.assertEquals(expected, actual);
     }
 }
